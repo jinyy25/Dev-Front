@@ -1,4 +1,4 @@
-KMS_ FrontEnd Part
+KMS_ FrontEnd Part (1인 개발)
 
 Skill Set
 - React
