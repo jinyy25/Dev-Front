@@ -1,0 +1,60 @@
+.logos-container {
+  margin: 20px 0 40px 0;
+  text-align: center;
+  svg {
+    display: inline-block;
+  }
+}
+
+.devextreme-logo {
+  width: 200px;
+  height: 34px;
+  margin-bottom: 19px;
+}
+
+.react-logo {
+  width: 184px;
+  height: 68px;
+}
+
+.plus {
+  margin: 23px 10px;
+  width: 22px;
+  height: 22px;
+}
+
+.screen-x-small .logos-container {
+  svg {
+    width: 100%;
+    display: block;
+    &.plus {
+      margin: 0;
+    }
+  }
+}
+
+.font-option{
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: .25px;
+}
+
+.margin-left{
+  margin-left: 20px !important;
+}
+.margin-right{
+  margin-right: 20px !important;
+}
+
+.card-title-lg {
+  font-weight: 400;
+  margin:0.75rem 0;
+  color: #001737;
+  font-size: 1.4rem !important;
+}
+
+.card-title-md {
+  margin:1.75rem 0;
+  color: #001737;
+  font-size: 1.125rem !important;
+}

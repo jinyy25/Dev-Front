@@ -1,0 +1,33 @@
+@import "../../themes/generated/variables.base.scss";
+
+.text-align-right{
+  text-align: right;
+}
+
+.ask-upload-layout{
+  display: none;
+  width: 0%;
+  height: 0%;
+}
+
+.padding-option-layout{
+  padding: 0px 40px 0px 40px !important;
+}
+
+.scroll-option-1{
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.outline-option-ex{
+  padding: 13px 13px 40px 13px;
+}
+
+.dx-field-label-ex{
+  //width: 128px !important;
+}
+
+.text-align-center{
+  text-align: center;
+}
+
