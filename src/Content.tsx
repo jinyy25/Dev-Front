@@ -36,7 +36,7 @@ const Content=()=>{
          <Footer>
            Copyright © 2024-{new Date().getFullYear()}  &nbsp; VTW Inc.
              &nbsp;&nbsp;
-             <a href="http://13.125.16.155/notice/main" >VTW TRS</a>
+             <a href="http://trs.vtw.co.kr/" >VTW TRS</a>
            <br />
            All trademarks or registered trademarks are property of their
            respective owners.

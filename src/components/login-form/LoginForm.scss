@@ -21,3 +21,36 @@
     padding: 80px 0;
   }
 }
+
+
+.bottom-outline{
+  display: flex;
+      justify-content: space-around;
+      padding-top: 4em;
+}
+
+.a-round {
+    text-decoration: none;
+}
+
+.button-round {
+    word-wrap: break-word;
+    align-items: center;
+    background-color: #fff;
+    border: 1.5px solid;
+    border-radius: 50%;
+    color: #00a9cc;
+    cursor: pointer;
+    font-weight: 500;
+    height: 95px;
+    text-align: center;
+    white-space: normal;
+    width: 95px;
+}
+
+.dx-button-content {
+  line-height: 1.2 !important;
+}
+.dx-popup-content {
+    padding: 0 24px !important;
+}

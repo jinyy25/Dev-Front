@@ -248,7 +248,7 @@ const SearchGrid:React.FC<Props> = (props) => {
                         </DataGrid>
 
                 </div>
-                <Popup width={500} height={300}
+                <Popup width={500} height={265}
                      contentRender={renderContent}
                     visible={isPopupVisible}
                     hideOnOutsideClick={true}

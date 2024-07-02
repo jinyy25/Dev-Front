@@ -1,22 +1,18 @@
-import React, { useMemo, useCallback,useContext } from 'react';
+import React, { useMemo, useCallback, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import ContextMenu, { Position } from 'devextreme-react/context-menu';
 import List from 'devextreme-react/list';
-// import { useAuth } from '../../contexts/auth';
 import './UserPanel.scss';
 import type { UserPanelProps } from '../../types';
-
 import AuthContext from '../auth-store/auth-context';
 
-
-export default function UserPanel({ menuMode }: UserPanelProps) {
+const UserPanel = ({ menuMode }: UserPanelProps) => {
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
 
   const navigateToProfile = useCallback(() => {
     navigate("/profile");
   }, [navigate]);
-
 
   const menuItems = useMemo(() => ([
     {
@@ -29,27 +25,14 @@ export default function UserPanel({ menuMode }: UserPanelProps) {
       icon: 'runner',
       onClick: authCtx.logout
     }
-  ]), [navigateToProfile]);
-
-
+  ]), [navigateToProfile, authCtx.logout]);
 
   return (
     <div className={'user-panel'}>
       <div className={'user-info'}>
-       {/* <div className={'image-container'}>
-          <div
-            style={{
-              background: `url(${user!.avatarUrl}) no-repeat #fff`,
-              backgroundSize: 'cover'
-            }}
-            className={'user-image'} />
-        </div>*/}
-        {/*<div className={'user-name'}>{user!.email}</div>*/}
         <div className={'user-name'}> [ {authCtx.userObj.userId} ]  &nbsp; {authCtx.userObj.userName}</div>
       </div>
 
-
-      {/*context contents*/}
       {menuMode === 'context' && (
         <ContextMenu
           items={menuItems}
@@ -67,3 +50,5 @@ export default function UserPanel({ menuMode }: UserPanelProps) {
     </div>
   );
 }
+
+export default React.memo(UserPanel);

@@ -12,7 +12,8 @@ type UserInfo = { userId: string, userSeq:number, userName:string};
 type LoginToken = {
   grantType: string,
   accessToken: string,
-  tokenExpiresIn: number
+  tokenExpiresIn: number,
+    refreshToken: string
 }
 
 // 1. 컨택스트 생성
@@ -22,9 +23,11 @@ const AuthContext = React.createContext({
   isLoggedIn: false,
   isSuccess: false,
   isGetSuccess: false,
+    refreshSuccess: false,
   getUser: () => {},
   login: (userId:string, userPw: string) => {},
-  logout: () => {}
+  logout: () => {},
+    refresh: () => {}
 });
 
 
@@ -35,17 +38,22 @@ export const AuthContextProvider: React.FC<Props> = (props) => {
     const tokenData = authAction.retrieveStoredToken();
 
     let initialToken: any;
+    let refresh: any;
     if (tokenData) {
         initialToken = tokenData.token!;
+        refresh = tokenData.refreshToken!;
     }
 
     const [token, setToken] = useState(initialToken);
+    const [refreshToken, setRefreshToken] = useState(refresh);
+
     const [userObj, setUserObj] = useState({
         userId: '',userSeq:0,userName:''
     });
 
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
     const [isGetSuccess, setIsGetSuccess] = useState<boolean>(false);
+    const [refreshSuccess, setRefreshSuccess] = useState<boolean>(false);
 
     const userIsLoggedIn = !!token;
 
@@ -64,7 +72,7 @@ export const AuthContextProvider: React.FC<Props> = (props) => {
 
            logoutTimer = setTimeout(
              logoutHandler,
-             authAction.loginTokenHandler(loginData.accessToken, loginData.tokenExpiresIn)
+             authAction.loginTokenHandler(loginData.accessToken, loginData.tokenExpiresIn, loginData.refreshToken)
            );
 
          }
@@ -98,6 +106,23 @@ export const AuthContextProvider: React.FC<Props> = (props) => {
     };
 
 
+    const refreshHandler = () =>{
+        const data = authAction.refreshActionHandler(token,refreshToken);
+        data.then((result) => {
+          if (result !== null) {
+              const loginData:LoginToken = result.data;
+               setToken(loginData.accessToken);
+               setIsSuccess(true);
+               logoutTimer = setTimeout(
+                 logoutHandler,
+                 authAction.loginTokenHandler(loginData.accessToken, loginData.tokenExpiresIn, loginData.refreshToken)
+               );
+                setRefreshSuccess(true);
+          }
+        })
+    }
+
+
     //토큰 유효 시간
     useEffect(() => {
       if(tokenData) {
@@ -116,6 +141,8 @@ export const AuthContextProvider: React.FC<Props> = (props) => {
         getUser: getUserHandler,
         login: loginHandler,
         logout: logoutHandler,
+        refresh: refreshHandler,
+        refreshSuccess: refreshSuccess,
     }
 
     

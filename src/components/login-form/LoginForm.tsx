@@ -13,6 +13,8 @@ import LoadIndicator from 'devextreme-react/load-indicator';
 import './LoginForm.scss';
 
 import AuthContext from '../auth-store/auth-context';
+import {Button} from "devextreme-react/button";
+import {DataGridTypes} from "devextreme-react/data-grid";
 
 
 // Login 시작
@@ -47,9 +49,13 @@ const  LoginForm = () => {
 
   };
 
+  const onRequest = () => {
+      navigate('/ask');
+  }
 
   //2. Front
   return (
+      <div>
     <form className={'login-form login-layout'} onSubmit={onSubmit}>
       <Form formData={formData.current} disabled={loading}>
 
@@ -100,6 +106,26 @@ const  LoginForm = () => {
         </ButtonItem>
       </Form>
     </form>
+
+        <div className="bottom-outline">
+          <div>
+            <a className="a-round" href="http://trs.vtw.co.kr/">
+              <Button className="button-round">TR System</Button>
+            </a>
+          </div>
+
+          <div>
+            <a className="a-round" href="https://outlook.office.com">
+              <Button className="button-round">Mail</Button>
+            </a>
+          </div>
+
+          <div>
+               <Button className="button-round" onClick={onRequest} >디지털 서비스지원 질의응답</Button>
+           </div>
+        </div>
+
+      </div>
   );
 }
 

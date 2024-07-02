@@ -1,6 +1,16 @@
 import { GET, POST }  from "../../contexts/fetch-action";
 
 
+
+
+interface LoginToken {
+  grantType: string,
+  accessToken: string,
+  tokenExpiresIn: number,
+    refreshToken: string
+}
+
+
 //0. 토큰생성
 const createTokenHeader = (token: unknown) => {
   return {
@@ -11,9 +21,10 @@ const createTokenHeader = (token: unknown) => {
 }
 
 //1. 로그인 토큰 핸들러 (Set)
-export const loginTokenHandler = (token:string, expirationTime:number) => {
+export const loginTokenHandler = (token:string, expirationTime:number, refreshToken:string) => {
   localStorage.setItem('token', token);
   localStorage.setItem('expirationTime', String(expirationTime));
+  localStorage.setItem('refreshToken', String(refreshToken));
 
   const remainingTime = calculateRemainingTime(expirationTime);
   return remainingTime;
@@ -32,6 +43,7 @@ const calculateRemainingTime = (expirationTime:number) => {
 //2. 조회된 토큰 저장 (get)
 export const retrieveStoredToken = () => {
   const storedToken = localStorage.getItem('token');
+  const refreshToken = localStorage.getItem('refreshToken');
   const storedExpirationDate = localStorage.getItem('expirationTime') || '0';
 
   const remaingTime = calculateRemainingTime(+ storedExpirationDate);
@@ -41,12 +53,14 @@ export const retrieveStoredToken = () => {
   if(remaingTime <= 1000) {
     localStorage.removeItem('token');
     localStorage.removeItem('expirationTime');
+    localStorage.removeItem('refreshToken');
     return null
   }
 
   return {
     token: storedToken,
-    duration: remaingTime
+    duration: remaingTime,
+    refreshToken: refreshToken
   }
 }
 
@@ -65,6 +79,7 @@ export const loginActionHandler = (userId:string, userPw: string) => {
 export const logoutActionHandler = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('expirationTime');
+  localStorage.removeItem('refreshToken');
 };
 
 
@@ -75,6 +90,17 @@ export const getUserActionHandler = (token: unknown) => {
   return response;
 }
 
+export const refreshActionHandler = (token: unknown, refreshToken:unknown) => {
+
+  let body ={
+    accessToken:token
+    , refreshToken:refreshToken
+  }
+  const URL = '/auth/refresh';
+  const response = POST(URL,body ,createTokenHeader(token));
+  retrieveStoredToken();
+  return response;
+}
 
 
 
