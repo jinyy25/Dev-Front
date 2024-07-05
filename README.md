@@ -2,6 +2,8 @@
 
 Project : 지식관리 시스템 
 
+기능: SPA, CSR, Axios 연계, Status 관리
+
 개발 인원 : 1 
 
 Skill Set
